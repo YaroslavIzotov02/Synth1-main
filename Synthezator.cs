@@ -59,8 +59,11 @@ namespace Synth_1
         /// <returns></returns>
         public void AddCarrier(Generator carrier)
         {
-            carrier.SetFreq(freq);
-            carriers.Add(carrier);
+            if (carrier != null)
+            {
+                carrier.SetFreq(freq);
+                carriers.Add(carrier);
+            }
         }
     }
 } 

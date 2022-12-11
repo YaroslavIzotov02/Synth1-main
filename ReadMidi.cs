@@ -11,6 +11,13 @@ namespace Synth_1
     public class ReadMidi
     {
         MidiIn midiIn;
+        MainWindow mw;
+
+        public ReadMidi(MainWindow mwt)
+        {
+            mw = mwt;
+        }
+
         public Dictionary<int, string> SelectDevice()
         {
             Dictionary<int, string> devs = new Dictionary<int, string>();
@@ -33,12 +40,12 @@ namespace Synth_1
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
             {
                 (double f, int d, int v) = GetNote(e.RawMessage); 
-                MainWindow.NoteOn(f, d);
+                mw.NoteOn(f, d);
             }
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
             {
                 (double f, int d, int v) = GetNote(e.RawMessage);
-                MainWindow.NoteOff(f, d);
+                mw.NoteOff(f, d);
             }
         }
 

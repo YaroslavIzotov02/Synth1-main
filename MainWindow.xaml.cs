@@ -25,9 +25,10 @@ namespace Synth_1
     public partial class MainWindow : Window
     {
         const int BUF_SIZE = 44100;
-        ReadMidi midi = new ReadMidi();
+        ReadMidi midi;
         static Synthesator[] synths = new Synthesator[128];
         static WaveType wt;
+        static WaveType wt2;
         private IWaveProvider provider;
         WaveFormat format;
         static int keysCount = 0;
@@ -35,6 +36,7 @@ namespace Synth_1
 
         public MainWindow()
         {
+            midi = new ReadMidi(this);
             InitializeComponent();
             format = new WaveFormat(44100, 16, 1);           
             DispatcherTimer timer = new DispatcherTimer();
@@ -62,30 +64,26 @@ namespace Synth_1
                 midi.InvokeMidiIn(0);
         }
 
-        public static void NoteOn(double freq, int index)
+        public void NoteOn(double freq, int index)
         {
             if (synths[index] == null)
             {
-                //if (checkBox1)
                 Synthesator s = new Synthesator(freq);
-                Generator g = new Generator();
-                g.SetAmplitude(8000);
-                g.SetWave(wt);
-                s.AddCarrier(g);
+                (Generator, Generator) temp = CreateScheme();
+                s.AddCarrier(temp.Item1);
+                s.AddCarrier(temp.Item2);
                 synths[index] = s;
                 keysCount++;
-                
             }
         }
 
-        public static void NoteOff(double freq, int index)
+        public void NoteOff(double freq, int index)
         {
             if (synths[index] != null)
             {
                 synths[index] = null;
                 keysCount--;
             }
-                
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -126,38 +124,76 @@ namespace Synth_1
             return (short)v;
         }
 
+        private (Generator, Generator) CreateScheme()
+        {
+            if (!(bool)checkBox1.IsChecked && !(bool)checkBox2.IsChecked)
+            {
+                Generator g1 = new Generator();
+                g1.SetAmplitude(8000);
+                g1.SetWave(wt);
+                Generator g2 = new Generator();
+                g2.SetAmplitude(8000);
+                g2.SetWave(wt2);
+
+                return (g1, g2);
+            }
+            else
+            {
+                if ((bool)checkBox2.IsChecked)
+                {
+                    Carrier c1 = new Carrier();
+                    c1.SetAmplitude(8000);
+                    c1.SetWave(wt);
+
+                    Modulator m1 = new Modulator();
+                    m1.SetWave(wt2);
+                    c1.SetModulator(m1);
+
+                    return (c1, null);
+                }
+
+                else
+                {
+                    Carrier c1 = new Carrier();
+                    c1.SetAmplitude(8000);
+                    c1.SetWave(wt2);
+
+                    Modulator m1 = new Modulator();
+                    m1.SetWave(wt);
+                    c1.SetModulator(m1);
+
+                    return (c1, null);
+                }
+            }
+        }
+
         private void Osc1Wave_DropDownClosed(object sender, EventArgs e)
         {
             
-            /*if (Osc1Wave.SelectedIndex >= 0)
+            if (Osc1Wave.SelectedIndex >= 0)
             {
                 Enum.TryParse(Osc1Wave.Text.ToString(), out wt);
-                g1.SetWave(wt);
             }
             else
             {
                 Osc1Wave.SelectedIndex = 0;
                 Enum.TryParse(Osc1Wave.Text.ToString(), out wt);
-                g1.SetWave(wt);
-            }
-*/
-        }
 
+            }
+        }
 
         private void Osc2Wave_DropDownClosed(object sender, EventArgs e)
         {
            
-            /*if (Osc2Wave.SelectedIndex >= 0)
+            if (Osc2Wave.SelectedIndex >= 0)
             {
-                Enum.TryParse(Osc2Wave.Text.ToString(), out wt);
-                g2.SetWave(wt);
+                Enum.TryParse(Osc2Wave.Text.ToString(), out wt2);
             }
             else
             {
                 Osc2Wave.SelectedIndex = 0;
-                Enum.TryParse(Osc2Wave.Text.ToString(), out wt);
-                g2.SetWave(wt);
-            }*/
+                Enum.TryParse(Osc2Wave.Text.ToString(), out wt2);
+            }
         }
     }
 }

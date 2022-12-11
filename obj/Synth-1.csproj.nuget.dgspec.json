@@ -1,24 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\Brux\\Desktop\\Synth1-main-main\\Synth-1.csproj": {}
+    "D:\\User\\repos\\Synth1-main\\Synth-1.csproj": {}
   },
   "projects": {
-    "D:\\Users\\Brux\\Desktop\\Synth1-main-main\\Synth-1.csproj": {
+    "D:\\User\\repos\\Synth1-main\\Synth-1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\Brux\\Desktop\\Synth1-main-main\\Synth-1.csproj",
+        "projectUniqueName": "D:\\User\\repos\\Synth1-main\\Synth-1.csproj",
         "projectName": "Synth-1",
-        "projectPath": "D:\\Users\\Brux\\Desktop\\Synth1-main-main\\Synth-1.csproj",
-        "packagesPath": "D:\\Users\\Brux\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\Brux\\Desktop\\Synth1-main-main\\obj\\",
+        "projectPath": "D:\\User\\repos\\Synth1-main\\Synth-1.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\User\\repos\\Synth1-main\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "D:\\Users\\Brux\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0-windows"
+          "net5.0-windows7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -51,8 +55,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -64,7 +67,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
         }
       }
     }

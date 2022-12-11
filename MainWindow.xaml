@@ -102,5 +102,6 @@
         <Label Content="Sustain" HorizontalAlignment="Left" Margin="702,255,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
         <Label Content="Release" HorizontalAlignment="Left" Margin="756,255,0,0" VerticalAlignment="Top" Height="26" Width="54" Grid.ColumnSpan="4"/>
         <CheckBox x:Name="checkBox1" Content="Modulator" HorizontalAlignment="Left" Margin="579,94,0,0" VerticalAlignment="Top" Width="101"/>
+        <CheckBox x:Name="checkBox2" Content="Modulator" HorizontalAlignment="Left" Margin="11,90,0,0" VerticalAlignment="Top" Width="101"/>
     </Grid>
 </Window>
