@@ -44,7 +44,7 @@ namespace Synth_1
         /// <summary>
         /// 
         /// </summary>
-        Dictionary<WaveType, Out> dic;
+        private protected Dictionary<WaveType, Out> dic;
 
         /// <summary>
         /// 
@@ -54,19 +54,19 @@ namespace Synth_1
         /// <summary>
         /// 
         /// </summary>
-        private double Frequency;
+        private protected double Frequency;
 
         /// <summary>
         /// 
         /// </summary>
-        private short Amplitude = 7000;  
+        private protected short Amplitude = 7000;
 
         /// <summary>
         /// 
         /// </summary>
-        private short Velocity;
+        private protected short Velocity;
 
-        private double phaseAngle = 0;
+        private protected double phaseAngle = 0;
 
         #endregion
 
@@ -118,7 +118,7 @@ namespace Synth_1
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>short int</returns>
+        /// <returns>double</returns>
         public double GetOut()
         {
             return dic[waveType]();
@@ -143,7 +143,7 @@ namespace Synth_1
 
 
         #region Private methods
-        private double Sine()
+        private protected double Sine()
         {
             if (phaseAngle > 2 * Math.PI)
                 phaseAngle -= 2 * Math.PI;
@@ -153,7 +153,7 @@ namespace Synth_1
             return (Amplitude * Math.Sin(phaseAngle));
         }
 
-        private double Saw()
+        private protected double Saw()
         {
             if (phaseAngle > 2 * Math.PI)
                 phaseAngle -= 2 * Math.PI;
@@ -163,7 +163,7 @@ namespace Synth_1
             return (2 * Amplitude * Math.Asin(Math.Sin(phaseAngle)) / Math.PI);
         }
 
-        private double Square()
+        private protected double Square()
         {
             if (phaseAngle > 2 * Math.PI)
                 phaseAngle -= 2 * Math.PI;
@@ -173,7 +173,7 @@ namespace Synth_1
             return (Amplitude * Math.Sign(Math.Sin(phaseAngle)));
         }
 
-        private double Triangle()
+        private protected double Triangle()
         {
             if (phaseAngle > 2 * Math.PI)
                 phaseAngle -= 2 * Math.PI;
@@ -183,7 +183,7 @@ namespace Synth_1
             return (2 * Amplitude * (Math.PI / (2 - Math.Atan(Math.Tan(phaseAngle)))) / Math.PI);
         }
 
-        private double Noise()
+        private protected double Noise()
         {
             if (phaseAngle > 2 * Math.PI)
                 phaseAngle -= 2 * Math.PI;

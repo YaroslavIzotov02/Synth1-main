@@ -238,3 +238,5 @@ D:\Users\Brux\Desktop\Synth1-main-main\obj\Debug\net5.0-windows\refint\Synth-1.d
 D:\Users\Brux\Desktop\Synth1-main-main\obj\Debug\net5.0-windows\Synth-1.pdb
 D:\Users\Brux\Desktop\Synth1-main-main\obj\Debug\net5.0-windows\Synth-1.genruntimeconfig.cache
 D:\Users\Brux\Desktop\Synth1-main-main\obj\Debug\net5.0-windows\ref\Synth-1.dll
+D:\User\repos\Synth1-main\obj\Debug\net5.0-windows\SaveDialog.g.cs
+D:\User\repos\Synth1-main\obj\Debug\net5.0-windows\SaveDialog.baml

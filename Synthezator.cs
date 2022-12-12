@@ -38,7 +38,7 @@ namespace Synth_1
             {
                 res += carriers[i].GetOut();
             }
-            res = (res / carriers.Count);
+            res = res / carriers.Count;
             return res;
         }
 

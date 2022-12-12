@@ -24,11 +24,14 @@ namespace Synth_1
 
         #region Attributes
 
+        
+
         /// <summary>
         /// 
         /// </summary>
         private double Ratio;
 
+        WaveType wtmd = new WaveType();
 
         /// <summary>
         /// 
@@ -42,14 +45,20 @@ namespace Synth_1
 
         #region Public methods
 
+        public Modulator() : base ()
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="time"></param>
-        /// <returns>short int</returns>
-        public short[] GetOut(int time)
+        /// <param></param>
+        /// <returns>double</returns>
+        public double GetOut()
         {
-            throw new Exception("The method or operation is not implemented.");
+            Frequency = Frequency * Ratio;
+            return dic[wtmd]();
         }
 
         /// <summary>
@@ -57,9 +66,9 @@ namespace Synth_1
         /// </summary>
         /// <param name="Ratio"></param>
         /// <returns></returns>
-        public void SetRatio(double Ratio)
+        public void SetRatio(double ratio)
         {
-            throw new Exception("The method or operation is not implemented.");
+            Ratio = ratio;
         }
 
         /// <summary>
@@ -67,9 +76,9 @@ namespace Synth_1
         /// </summary>
         /// <param name="modulator"></param>
         /// <returns></returns>
-        public void SetModulator(Modulator modulator)
+        public void SetModulator(Modulator mod)
         {
-            throw new Exception("The method or operation is not implemented.");
+           modulator = mod;
         }
 
         #endregion

@@ -68,7 +68,7 @@
             </ComboBoxItem>
         </ComboBox>
         <ComboBox x:Name="Devices" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="212" Height="22" SelectionChanged="Devices_SelectedIndexChanged"/>
-        <ComboBox x:Name="Presets" HorizontalAlignment="Left" Margin="239,111,0,0" VerticalAlignment="Top" Width="212" Height="22"/>
+        <ComboBox x:Name="Presets" HorizontalAlignment="Left" Margin="239,111,0,0" VerticalAlignment="Top" Width="212" Height="22" DropDownClosed="Presets_DropDownClosed"/>
         <Slider HorizontalAlignment="Left" Margin="11,127,0,0" VerticalAlignment="Top" Width="20" Orientation="Vertical" Height="119"/>
         <Slider HorizontalAlignment="Left" Margin="79,127,0,0" VerticalAlignment="Top" Width="20" Orientation="Vertical" Height="119"/>
         <Slider HorizontalAlignment="Left" Margin="142,127,0,0" VerticalAlignment="Top" Width="20" Orientation="Vertical" Height="119"/>
@@ -81,9 +81,9 @@
         <Slider x:Name="Osc2V"  HorizontalAlignment="Left" Margin="589,300,0,0" VerticalAlignment="Top" Width="188" Height="36" Minimum="10" Maximum="32000" TickFrequency="3200" TickPlacement="Both" SmallChange="1"/>
         <Slider HorizontalAlignment="Center" Margin="0,351,0,0" VerticalAlignment="Top" Width="188" Height="18"/>
         <ComboBox x:Name="FMSettings" HorizontalAlignment="Left" Margin="239,165,0,0" VerticalAlignment="Top" Width="212" Height="22"/>
-        <Slider HorizontalAlignment="Center" Margin="0,199,0,0" VerticalAlignment="Top" Width="200" Height="18"/>
+        <Slider x:Name="Ratio" HorizontalAlignment="Center" Margin="0,199,0,0" VerticalAlignment="Top" Width="200" Height="42" ValueChanged="Ratio_ValueChanged" TickPlacement="Both" Maximum="32" Minimum="0.03125" IsSnapToTickEnabled="True" Value="1" LargeChange="2"/>
         <Button x:Name = "button1" Content="On/Off" HorizontalAlignment="Left" Margin="470,167,0,0" VerticalAlignment="Top" Width="73" Click="Button1_Click" Height="20" AutomationProperties.Name="" ClickMode="Release"/>
-        <Button x:Name = "button2" Content="Save" HorizontalAlignment="Left" Margin="470,111,0,0" VerticalAlignment="Top" Width="73" Click="Button2_Click" Height="20" ClickMode="Release"/>
+        <Button x:Name = "SavePreset" Content="Save" HorizontalAlignment="Left" Margin="470,111,0,0" VerticalAlignment="Top" Width="73" Click="SavePreset_Click" Height="20" ClickMode="Release"/>
         <Label Content="Osc-1 Waveform" HorizontalAlignment="Left" Margin="47,23,0,0" VerticalAlignment="Top" Height="26" Width="98"/>
         <Label Content="Osc-2 Waveform" HorizontalAlignment="Left" Margin="636,21,0,0" VerticalAlignment="Top" Height="26" Width="98"/>
         <Label Content="Change MIDI-Device" HorizontalAlignment="Center" Margin="0,16,0,0" VerticalAlignment="Top" Height="26" Width="120"/>
@@ -101,7 +101,7 @@
         <Label Content="Decay" HorizontalAlignment="Left" Margin="638,255,0,0" VerticalAlignment="Top" Height="26" Width="42"/>
         <Label Content="Sustain" HorizontalAlignment="Left" Margin="702,255,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
         <Label Content="Release" HorizontalAlignment="Left" Margin="756,255,0,0" VerticalAlignment="Top" Height="26" Width="54" Grid.ColumnSpan="4"/>
-        <CheckBox x:Name="checkBox1" Content="Modulator" HorizontalAlignment="Left" Margin="579,94,0,0" VerticalAlignment="Top" Width="101"/>
-        <CheckBox x:Name="checkBox2" Content="Modulator" HorizontalAlignment="Left" Margin="11,90,0,0" VerticalAlignment="Top" Width="101"/>
+        <CheckBox x:Name="checkBox1" Content="Modulator" HorizontalAlignment="Left" Margin="579,94,0,0" VerticalAlignment="Top" Width="101" Checked="checkBox1_Checked" Unchecked="checkBox1_Unchecked"/>
+        <CheckBox x:Name="checkBox2" Content="Modulator" HorizontalAlignment="Left" Margin="11,90,0,0" VerticalAlignment="Top" Width="101" Checked="checkBox2_Checked" Unchecked="checkBox2_Unchecked"/>
     </Grid>
 </Window>

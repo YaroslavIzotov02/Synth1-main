@@ -29,9 +29,13 @@ namespace Synth_1
         static Synthesator[] synths = new Synthesator[128];
         static WaveType wt;
         static WaveType wt2;
+        bool chck1 = false;
+        bool chck2 = false;
+        double mf = 1;
         private IWaveProvider provider;
         WaveFormat format;
         static int keysCount = 0;
+        List<string> presets = new List<string>();
 
 
         public MainWindow()
@@ -44,6 +48,18 @@ namespace Synth_1
             timer.Tick += Timer1_Tick;
             timer.Start();
             Devices.ItemsSource = midi.SelectDevice().Select(x => x.Value);
+            string path = $"C:\\Users\\{Environment.UserName}\\Documents\\TestSynth\\Presets";
+            if (Directory.Exists(path))
+            {
+                presets = Directory.GetFiles(path).ToList();
+                List<string> temp = new List<string>();
+                foreach (string preset in presets)
+                {
+                    temp.Add(preset.Remove(0, preset.LastIndexOf("\\") + 1));
+                }
+                Presets.ItemsSource = temp;
+            }
+
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
@@ -51,9 +67,21 @@ namespace Synth_1
 
         }
 
-        private void Button2_Click(object sender, RoutedEventArgs e)
+        private void SavePreset_Click(object sender, RoutedEventArgs e)
         {
+            string path = $"C:\\Users\\{Environment.UserName}\\Documents\\TestSynth\\Presets";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
 
+            SaveDialog sd = new SaveDialog();
+            if (sd.ShowDialog() == true)
+            {
+                File.Create(path + "\\" + sd.PrName + ".txt");
+
+            }
+            
         }
 
         private void Devices_SelectedIndexChanged(object sender, RoutedEventArgs e)
@@ -69,9 +97,50 @@ namespace Synth_1
             if (synths[index] == null)
             {
                 Synthesator s = new Synthesator(freq);
-                (Generator, Generator) temp = CreateScheme();
-                s.AddCarrier(temp.Item1);
-                s.AddCarrier(temp.Item2);
+                if (!(bool)chck1 && !(bool)chck2)
+                {
+                    Generator g1 = new Generator();
+                    g1.SetAmplitude(8000);
+                    g1.SetWave(wt);
+                    Generator g2 = new Generator();
+                    g2.SetAmplitude(8000);
+                    g2.SetWave(wt2);
+
+                    s.AddCarrier(g1);
+                    s.AddCarrier(g2);
+                }
+                else
+                {
+                    if ((bool)chck2)
+                    {
+                        Carrier c1 = new Carrier();
+                        c1.SetAmplitude(8000);
+                        c1.SetWave(wt);
+
+                        Modulator m1 = new Modulator();
+                        m1.SetWave(wt2);
+                        m1.SetFreq(freq);
+                        m1.SetRatio(mf);
+                        c1.SetModulator(m1);
+
+                        s.AddCarrier(c1);
+                    }
+
+                    else
+                    {
+                        Carrier c1 = new Carrier();
+                        c1.SetAmplitude(8000);
+                        c1.SetWave(wt2);
+
+                        Modulator m1 = new Modulator();
+                        m1.SetWave(wt);
+                        m1.SetFreq(freq);
+                        m1.SetRatio(mf);
+                        c1.SetModulator(m1);
+                        s.AddCarrier(c1);
+                       
+                    }
+                }
                 synths[index] = s;
                 keysCount++;
             }
@@ -124,9 +193,33 @@ namespace Synth_1
             return (short)v;
         }
 
-        private (Generator, Generator) CreateScheme()
+        private void checkBox1_Checked(object sender, RoutedEventArgs e)
         {
-            if (!(bool)checkBox1.IsChecked && !(bool)checkBox2.IsChecked)
+            chck1 = true;
+            checkBox2.IsEnabled = false;
+        }
+
+        private void checkBox1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            chck1 = false;
+            checkBox2.IsEnabled = true;
+        }
+
+        private void checkBox2_Checked(object sender, RoutedEventArgs e)
+        {
+            chck2 = true;
+            checkBox1.IsEnabled = false;
+        }
+
+        private void checkBox2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            chck2 = false;
+            checkBox1.IsEnabled = true;
+        }
+
+        /*private (Generator, Generator) CreateScheme()
+        {
+            if (!(bool)chck1 && !(bool)chck2)
             {
                 Generator g1 = new Generator();
                 g1.SetAmplitude(8000);
@@ -139,7 +232,7 @@ namespace Synth_1
             }
             else
             {
-                if ((bool)checkBox2.IsChecked)
+                if ((bool)chck2)
                 {
                     Carrier c1 = new Carrier();
                     c1.SetAmplitude(8000);
@@ -165,6 +258,12 @@ namespace Synth_1
                     return (c1, null);
                 }
             }
+        }*/
+
+        private void Presets_DropDownClosed(object sender, EventArgs e)
+        {
+
+           
         }
 
         private void Osc1Wave_DropDownClosed(object sender, EventArgs e)
@@ -194,6 +293,11 @@ namespace Synth_1
                 Osc2Wave.SelectedIndex = 0;
                 Enum.TryParse(Osc2Wave.Text.ToString(), out wt2);
             }
+        }
+
+        private void Ratio_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            mf = Ratio.Value;
         }
     }
 }
