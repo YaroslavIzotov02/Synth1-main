@@ -78,8 +78,34 @@ namespace Synth_1
             SaveDialog sd = new SaveDialog();
             if (sd.ShowDialog() == true)
             {
-                File.Create(path + "\\" + sd.PrName + ".txt");
-
+                if (!File.Exists(path + "\\" + sd.PrName + ".txt"))
+                {
+                    using (File.Create(path + "\\" + sd.PrName + ".txt"));
+                }
+                    if (!chck1 && !chck2)
+                    {
+                        string os1 = SetStr(Osc1Wave.Text.ToString(), a1.Value, d1.Value, s1.Value, r1.Value, Osc1V.Value) + '\n';
+                        string os2 = SetStr(Osc2Wave.Text.ToString(), a2.Value, d2.Value, s2.Value, r2.Value, Osc2V.Value) + '\n';
+                        File.AppendAllText(path + "\\" + sd.PrName + ".txt", os1);
+                        File.AppendAllText(path + "\\" + sd.PrName + ".txt", os2);
+                    }
+                    else
+                    {
+                        if (chck1)
+                        {
+                            string os1 = SetStr(Osc1Wave.Text.ToString(), a1.Value, d1.Value, s1.Value, r1.Value, Osc1V.Value, Ratio.Value) + '\n';
+                            string os2 = SetStr(Osc2Wave.Text.ToString(), a2.Value, d2.Value, s2.Value, r2.Value, Osc2V.Value) + '\n';
+                            File.AppendAllText(path + "\\" + sd.PrName + ".txt", os1);
+                            File.AppendAllText(path + "\\" + sd.PrName + ".txt", os2);
+                        }
+                        else
+                        {
+                            string os1 = SetStr(Osc1Wave.Text.ToString(), a1.Value, d1.Value, s1.Value, r1.Value, Osc1V.Value) + '\n';
+                            string os2 = SetStr(Osc2Wave.Text.ToString(), a2.Value, d2.Value, s2.Value, r2.Value, Osc2V.Value, Ratio.Value) + '\n';
+                            File.AppendAllText(path + "\\" + sd.PrName + ".txt", os1);
+                            File.AppendAllText(path + "\\" + sd.PrName + ".txt", os2);
+                        }
+                    }
             }
             
         }
@@ -120,7 +146,7 @@ namespace Synth_1
                         Modulator m1 = new Modulator();
                         m1.SetWave(wt2);
                         m1.SetFreq(freq);
-                        m1.SetRatio(mf);
+                        m1.SetRatio(ref mf);
                         c1.SetModulator(m1);
 
                         s.AddCarrier(c1);
@@ -135,7 +161,7 @@ namespace Synth_1
                         Modulator m1 = new Modulator();
                         m1.SetWave(wt);
                         m1.SetFreq(freq);
-                        m1.SetRatio(mf);
+                        m1.SetRatio(ref mf);
                         c1.SetModulator(m1);
                         s.AddCarrier(c1);
                        
@@ -260,10 +286,58 @@ namespace Synth_1
             }
         }*/
 
+        private string SetStr(string w, double a, double d, double s, double r, double v)
+        {
+            return w + " " + false + " " + a + " " + d + " " + s + " " + r + " " + v;
+        }
+
+        private string SetStr(string w, double a, double d, double s, double r, double v, double rt)
+        {
+            return w + " " + true + " " + a + " " + d + " " + s + " " + r + " " + v + " " + rt;
+        }
+
         private void Presets_DropDownClosed(object sender, EventArgs e)
         {
+            string path = $"C:\\Users\\{Environment.UserName}\\Documents\\TestSynth\\Presets";
+            if (Directory.Exists(path))
+            {
+               if (File.Exists(path + "\\" + Presets.Text.ToString()))
+               {
+                    string[] temp = File.ReadAllLines(path + "\\" + Presets.Text.ToString());
+                    string[] st1 = temp[0].Split(" ");
+                    string[] st2 = temp[1].Split(" ");
 
-           
+                    Osc1Wave.Text = st1[0];
+                    Osc2Wave.Text = st2[0];
+                    Enum.TryParse(st1[0], out wt);
+                    Enum.TryParse(st2[0], out wt2);
+                    checkBox1.IsChecked = chck1 = Convert.ToBoolean(st1[1]);
+                    checkBox2.IsChecked = chck2 = Convert.ToBoolean(st2[1]);
+                    a1.Value = Convert.ToDouble(st1[2]);
+                    a2.Value = Convert.ToDouble(st2[2]);
+                    d1.Value = Convert.ToDouble(st1[3]);
+                    d2.Value = Convert.ToDouble(st2[3]);
+                    s1.Value = Convert.ToDouble(st1[4]);
+                    s2.Value = Convert.ToDouble(st2[4]);
+                    r1.Value = Convert.ToDouble(st1[5]);
+                    r2.Value = Convert.ToDouble(st2[5]);
+                    Osc1V.Value = Convert.ToDouble(st1[6]);
+                    Osc2V.Value = Convert.ToDouble(st2[6]);
+
+
+
+                    if (Convert.ToBoolean(st1[1]))
+                    {
+                        mf = Ratio.Value = Convert.ToDouble(st1[7]);
+                    }
+
+                    if (Convert.ToBoolean(st2[1]))
+                    {
+                        mf = Ratio.Value = Convert.ToDouble(st2[7]);
+                    }
+                }
+            }
+
         }
 
         private void Osc1Wave_DropDownClosed(object sender, EventArgs e)

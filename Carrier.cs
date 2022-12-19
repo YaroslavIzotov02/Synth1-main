@@ -24,8 +24,6 @@ namespace Synth_1
 
         #region Attributes
 
-        WaveType wtc = new WaveType();
-
         /// <summary>
         /// 
         /// </summary>
@@ -51,7 +49,7 @@ namespace Synth_1
         public double GetOut()
         {
             this.phaseAngle += this.phaseAngle + modulator.GetOut();
-            return dic[wtc]();
+            return dic[waveType]();
         }
 
         /// <summary>

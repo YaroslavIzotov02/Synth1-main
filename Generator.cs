@@ -49,7 +49,7 @@ namespace Synth_1
         /// <summary>
         /// 
         /// </summary>
-        WaveType waveType;
+        private protected WaveType waveType;
 
         /// <summary>
         /// 

@@ -31,8 +31,6 @@ namespace Synth_1
         /// </summary>
         private double Ratio;
 
-        WaveType wtmd = new WaveType();
-
         /// <summary>
         /// 
         /// </summary>
@@ -58,7 +56,7 @@ namespace Synth_1
         public double GetOut()
         {
             Frequency = Frequency * Ratio;
-            return dic[wtmd]();
+            return dic[waveType]();
         }
 
         /// <summary>
@@ -66,7 +64,7 @@ namespace Synth_1
         /// </summary>
         /// <param name="Ratio"></param>
         /// <returns></returns>
-        public void SetRatio(double ratio)
+        public void SetRatio(ref double ratio)
         {
             Ratio = ratio;
         }
