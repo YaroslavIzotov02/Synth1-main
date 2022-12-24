@@ -53,10 +53,10 @@ namespace Synth_1
         /// </summary>
         /// <param></param>
         /// <returns>double</returns>
-        public double GetOut()
+        public override double GetOut()
         {
-            Frequency = Frequency * Ratio;
             return dic[waveType]();
+            
         }
 
         /// <summary>
@@ -67,6 +67,7 @@ namespace Synth_1
         public void SetRatio(ref double ratio)
         {
             Ratio = ratio;
+            Frequency = Frequency * Ratio;
         }
 
         /// <summary>
@@ -78,7 +79,6 @@ namespace Synth_1
         {
            modulator = mod;
         }
-
         #endregion
 
 

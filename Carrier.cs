@@ -46,9 +46,9 @@ namespace Synth_1
         /// </summary>
         /// <param></param>
         /// <returns>short int</returns>
-        public double GetOut()
+        public override double GetOut()
         {
-            this.phaseAngle += this.phaseAngle + modulator.GetOut();
+            this.w = this.w + modulator.GetOut();
             return dic[waveType]();
         }
 
