@@ -55,7 +55,7 @@ namespace Synth_1
         /// <returns>double</returns>
         public override double GetOut()
         {
-            return dic[waveType]();
+            return Ratio * (dic[waveType]() / Amplitude);
             
         }
 
@@ -67,7 +67,6 @@ namespace Synth_1
         public void SetRatio(ref double ratio)
         {
             Ratio = ratio;
-            Frequency = Frequency * Ratio;
         }
 
         /// <summary>
